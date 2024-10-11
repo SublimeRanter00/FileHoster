@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+}
+h1 {
+    font-size: 24px;
+    color: #333;
+}
+.drop-zone {
+    border: 2px dashed #ccc;
+    border-radius: 4px;
+    padding: 20px;
+    color: #aaa;
+    margin-top: 10px;
+}
+.progress {
+    width: 100%;
+    background-color: #f4f4f9;
+    margin-top: 10px;
+}
+.progress-bar {
+    height: 10px;
+    background-color: #4caf50;
+    width: 0%;
+}
+#status {
+    margin-top: 10px;
+    color: #333;
+}
+button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
