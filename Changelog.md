@@ -11,5 +11,6 @@
 - Added start script to `package.json`. You can now use `npm start` to run the server
 - Fixed bug where it would throw an error if upload directory is not presented and had to be created manually
 - Fixed bug where an extra file extension was being added again to the file
+- Fixed formatting for all the files
 - Set main file to `server.js`. You can now run `node .` instead of specifying `node server.js`
 - Server shows your PC's local IP in the console when ran instead of "localhost"
