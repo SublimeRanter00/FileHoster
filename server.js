@@ -1,32 +1,95 @@
-const express = require('express');
-const multer = require('multer');
-const path = require('path');
+const express = require("express");
+const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
+const ini = require("ini");
 const app = express();
+const os = require("os");
 
-// Define the storage location with original file extension
+// Define the config file path
+const configFilePath = path.join(__dirname, "config.ini");
+
+// Check if config.ini exists, if not create it with default value (true)
+if (!fs.existsSync(configFilePath)) {
+  const defaultConfig = `[settings]\ntimestamp=true\nport=3000\n`;
+  fs.writeFileSync(configFilePath, defaultConfig, "utf-8");
+  console.log("config.ini created with default values.");
+}
+
+// Load configuration from config.ini
+const config = ini.parse(fs.readFileSync(configFilePath, "utf-8"));
+var useTimestamp = config.settings.timestamp;
+var portValue = parseInt(config.settings.port, 10);
+
+// To prevent user error and sets defaults for core functions
+if (typeof useTimestamp !== "boolean") {
+  console.error(
+    `${useTimestamp} is an invalid value. Switching to default: true`
+  );
+  useTimestamp = true;
+}
+if (isNaN(portValue) || portValue < 0 || portValue >= 65536) {
+  console.error(
+    `${config.settings.port} is invalid. Switching to default port value: 3000`
+  );
+  portValue = 3000;
+}
+
+console.log(`Timestamp: ${useTimestamp}`);
+console.log(`Port: ${portValue}`);
+
+// Define the uploads directory path
+const uploadDir = path.join(__dirname, "uploads");
+
+// Check if the uploads directory exists, create if it doesn't
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+  console.log("Uploads folder created.");
+}
+
+// Define the storage location and filename format for multer
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // Save in the 'uploads' directory
-    },
-    filename: (req, file, cb) => {
-        const timestamp = Date.now();
-        const extension = path.extname(file.originalname); // Get the original file extension
-        const newFilename = `${timestamp}-${file.originalname}${extension}`; // Preserve extension
-        cb(null, newFilename);
+  destination: (req, file, cb) => {
+    cb(null, uploadDir); // Set the destination to the uploads directory
+  },
+  filename: (req, file, cb) => {
+    const extension = path.extname(file.originalname); // Get the original file extension
+    const baseFilename = file.originalname;
 
-        // Log the original file name and timestamped file name
-        console.log(`Uploaded File: Original Name: ${file.originalname}, Timestamped Name: ${newFilename}`);
-    }
+    // Add timestamp only if useTimestamp is true
+    const timestampedFilename = useTimestamp
+      ? `${Date.now()}-${baseFilename}`
+      : baseFilename;
+    cb(null, timestampedFilename);
+
+    console.log(`File uploaded to ${uploadDir}\\${timestampedFilename}`);
+  },
 });
 
 const upload = multer({ storage: storage });
 
-app.use(express.static('public'));
+app.use(express.static("public"));
 
-app.post('/upload', upload.single('file'), (req, res) => {
-    res.send('File uploaded successfully');
+app.post("/upload", upload.single("file"), (req, res) => {
+  res.send("File uploaded successfully");
 });
 
-app.listen(3000, () => {
-    console.log('Server is running at http://localhost:3000');
+// Get local IP address
+const getLocalIP = () => {
+  const networkInterfaces = os.networkInterfaces();
+  for (const interface in networkInterfaces) {
+    for (const addr of networkInterfaces[interface]) {
+      if (addr.family === "IPv4" && !addr.internal) {
+        return addr.address;
+      }
+    }
+  }
+
+  return "127.0.0.1"; //Fallsback to localhost IP if no IP found
+};
+
+const localIP = getLocalIP();
+
+app.listen(portValue, () => {
+  console.log(`Server is running at http://${localIP}:${portValue}`);
 });
