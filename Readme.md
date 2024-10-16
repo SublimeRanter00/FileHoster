@@ -4,6 +4,8 @@
 - It is an extremely WIP project with basically zero stress testing or bug testing as it is intended only for personal use in a local network.
 - It is also very useful to transfer things from Apple environment to your PC
 
+![](https://i.imgur.com/sFcWx7j.png)
+
 ### Requirements:
 - Node JS
 - All files required by Node JS
