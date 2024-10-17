@@ -16,5 +16,5 @@
 - Server shows your PC's local IP in the console when ran instead of "localhost"
 
 ### v2.1:
-- Updated `config.ini` to set `timestamp=true`. It was previously set to false.
+- Updated `config.ini` to set `timestamp=true`. It was previously set to `false`.
 - Updated `Readme.md` to list out the known bugs
