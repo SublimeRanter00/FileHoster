@@ -23,4 +23,7 @@ There is a `config.ini` present in the directory (if it is not present, run the 
 - Default value for `port` is `3000`. Change it to any port you wish if port 3000 is occupied
 - **Note:** The value of `port` should always be between 0 and 65535!
 
-> This is a one-off project, no updates or bug fixes will be done.
+### Bugs:
+- When multiple internet adapters are installed in the PC, it does not detect the active one, instead it detects the first one it gets.
+For example, when you have an ethernet adapter but your PC is connected to WiFi, if the ethernet adapter comes first, it will print the ethernet adapter instead of the currently connected WiFi adapter.
+If you get this bug, please use `ipconfig` and find the correct local IPv4 address!
