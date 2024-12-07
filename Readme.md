@@ -1,6 +1,6 @@
 # Local File Hoster
 
-- **Latest version:** `v2.1`
+- **Latest version:** `v2.2`
 - This code was created as a simple project to quickly transfer files from my phone to my PC via the local network before **Link to Windows** became a thing.
 - It is an extremely WIP project with basically zero stress testing or bug testing as it is intended only for personal use in a local network.
 - It is also very useful to transfer things from Apple environment to your PC
@@ -24,7 +24,5 @@ There is a `config.ini` present in the directory (if it is not present, run the 
 - Default value for `port` is `3000`. Change it to any port you wish if port 3000 is occupied
 - **Note:** The value of `port` should always be between 0 and 65535!
 
-### Bugs:
-- When multiple internet adapters are installed in the PC, it does not detect the active one, instead it detects the first one it gets.
-For example, when you have an ethernet adapter but your PC is connected to WiFi, if the ethernet adapter comes first, it will print the ethernet adapter instead of the currently connected WiFi adapter.
-If you get this bug, please use `ipconfig` and find the correct local IPv4 address!
+### Bugs (Create an issue and notify me if you find any!):
+- None :)

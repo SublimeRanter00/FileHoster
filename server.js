@@ -11,7 +11,7 @@ const configFilePath = path.join(__dirname, "config.ini");
 
 // Check if config.ini exists, if not create it with default value (true)
 if (!fs.existsSync(configFilePath)) {
-  const defaultConfig = `[settings]\ntimestamp=true\nport=3000\n`;
+  const defaultConfig = `[settings]\ntimestamp=false\nport=3000\n`;
   fs.writeFileSync(configFilePath, defaultConfig, "utf-8");
   console.log("config.ini created with default values.");
 }
@@ -74,21 +74,26 @@ app.post("/upload", upload.single("file"), (req, res) => {
   res.send("File uploaded successfully");
 });
 
-// Get local IP address
-const getLocalIP = () => {
-  const networkInterfaces = os.networkInterfaces();
-  for (const interface in networkInterfaces) {
-    for (const addr of networkInterfaces[interface]) {
-      if (addr.family === "IPv4" && !addr.internal) {
-        return addr.address;
+// This function gets the active connection and fixes the bug due to multiple network adapters. Haven't tested it yet but this should work. Hopefully.
+// If this doesn't fix it, then I dont think it can be fixed -_-
+function getActiveIPAddress() {
+  const networkInt = os.networkInterfaces();
+  for (const iface of Object.values(networkInt)) {
+    for (const details of iface) {
+      if (details.family === "IPv4" && !details.internal && details.address) {
+        if (
+          details.address.startsWith("192.") ||
+          details.address.startsWith("10.")
+        ) {
+          return details.address;
+        }
       }
     }
   }
+  return "127.0.0.1";
+}
 
-  return "127.0.0.1"; //Fallsback to localhost IP if no IP found
-};
-
-const localIP = getLocalIP();
+const localIP = getActiveIPAddress();
 
 app.listen(portValue, () => {
   console.log(`Server is running at http://${localIP}:${portValue}`);
