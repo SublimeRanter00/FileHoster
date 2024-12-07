@@ -1,9 +1,14 @@
 # Changelog
 
-### v1.0:
-- Initial release
+### v2.2:
+- Fixed bug where the console might display the wrong local IPv4 address when you have a VM Network Adapter
+- Updated `config.ini` to set `timestamp=false`
 
-### v2.0:
+### v2.1:
+- Updated `config.ini` to set `timestamp=true`. It was previously set to `false`.
+- Updated `Readme.md` to list out the known bugs
+
+- ### v2.0:
 - Added `Changelog.md` file
 - Added `config.ini` to specify if timestamp should be included in the uploaded filename [Default = true]
 - Added ability to change the desired port in `config.ini` [Default = 3000]
@@ -15,10 +20,5 @@
 - Set main file to `server.js`. You can now run `node .` instead of specifying `node server.js`
 - Server shows your PC's local IP in the console when ran instead of "localhost"
 
-### v2.1:
-- Updated `config.ini` to set `timestamp=true`. It was previously set to `false`.
-- Updated `Readme.md` to list out the known bugs
-
-### v2.2:
-- Fixed bug where the console might display the wrong local IPv4 address when you have a VM Network Adapter
-- Updated `config.ini` to set `timestamp=false`
+### v1.0:
+- Initial release
