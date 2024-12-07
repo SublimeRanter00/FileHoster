@@ -78,12 +78,17 @@ app.post("/upload", upload.single("file"), (req, res) => {
 // If this doesn't fix it, then I dont think it can be fixed -_-
 function getActiveIPAddress() {
   const networkInt = os.networkInterfaces();
+
   for (const iface of Object.values(networkInt)) {
     for (const details of iface) {
       if (details.family === "IPv4" && !details.internal && details.address) {
+        // Check if the address is within common private ranges
         if (
           details.address.startsWith("192.") ||
-          details.address.startsWith("10.")
+          details.address.startsWith("10.") ||
+          (details.address.startsWith("172.") &&
+            parseInt(details.address.split(".")[1], 10) >= 16 &&
+            parseInt(details.address.split(".")[1], 10) <= 31)
         ) {
           return details.address;
         }
