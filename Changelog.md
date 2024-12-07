@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.2.1:
+- Fixed an issue where `config.ini` defaults to `timestamp=true`
+
 ### v2.2:
 - Fixed bug where the console might display the wrong local IPv4 address when you have a VM Network Adapter
 - Updated `config.ini` to set `timestamp=false`
