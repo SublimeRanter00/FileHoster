@@ -8,7 +8,7 @@
 - Updated `config.ini` to set `timestamp=true`. It was previously set to `false`.
 - Updated `Readme.md` to list out the known bugs
 
-- ### v2.0:
+### v2.0:
 - Added `Changelog.md` file
 - Added `config.ini` to specify if timestamp should be included in the uploaded filename [Default = true]
 - Added ability to change the desired port in `config.ini` [Default = 3000]
