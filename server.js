@@ -24,9 +24,9 @@ var portValue = parseInt(config.settings.port, 10);
 // To prevent user error and sets defaults for core functions
 if (typeof useTimestamp !== "boolean") {
   console.error(
-    `${useTimestamp} is an invalid value. Switching to default: true`
+    `${useTimestamp} is an invalid value. Switching to default: false`
   );
-  useTimestamp = true;
+  useTimestamp = false;
 }
 if (isNaN(portValue) || portValue < 0 || portValue >= 65536) {
   console.error(
